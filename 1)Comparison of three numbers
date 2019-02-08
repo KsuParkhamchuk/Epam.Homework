@@ -5,10 +5,11 @@ public class Main {
 		int a=3,b=6,c=5;
                 if (a==b&&b==c){
                     System.out.println("All numbers are the same");
-                }else if(a==b||a==c||b==c){
-                    System.out.println("Two numbers are the same");
-                }else {
-                    System.out.println("All numbers are different");
+                }else 
+		    if(a==b||a==c||b==c){
+                          System.out.println("Two numbers are the same");
+                    }else {
+                          System.out.println("All numbers are different");
                 }
 	}
 }
