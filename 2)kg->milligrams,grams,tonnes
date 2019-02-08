@@ -1,4 +1,5 @@
-public class Main {
+public class Weight
+{
 	public static void main(String[] args)
 	{
 		int kg=70,mlg,gr;
