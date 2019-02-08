@@ -1,0 +1,13 @@
+public class Main {
+	public static void main(String[] args)
+	{
+		int kg=70,mlg,gr;
+                double tn;
+                mlg=kg*1000000;
+                gr=kg*1000;
+                tn=kg/1000;
+                System.out.println("In "+kg+"kg - "+mlg+" milligrams");
+                System.out.println("In "+kg+"kg - "+gr+" grams");
+                System.out.println("In "+kg+"kg - "+tn+" tonnes");
+	}
+}
