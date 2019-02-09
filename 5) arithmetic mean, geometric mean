@@ -1,0 +1,22 @@
+import static java.lang.Math.pow;
+
+public class Main {
+    public static void main(String[] args) {
+        int number = 225645;
+        int sum=0;
+        double res1,res2,mlt=1;
+        byte digits[] = String.valueOf(number).getBytes();
+        double len=digits.length;
+        if(len!=6)
+            System.out.println("Число не шестизначное, а "+len+" значное");
+        for(int i=0;i<len;i++)
+        {
+            sum+=digits[i]-48;
+            mlt*=digits[i]-48;
+        }
+         res1=sum/digits.length;
+         res2=pow(mlt,1/len);
+         System.out.println("Среднее арифметическое = "+res1);
+         System.out.println("Среднее геометрическое = "+res2);
+    }
+}
