@@ -1,0 +1,17 @@
+public class IsIncrease {
+    public static void main(String[] args) {
+        int number = 123454;
+        byte digits[] = String.valueOf(number).getBytes();
+        if(digits.length!=4)
+            System.out.println("Число не четырехзначное, а "+digits.length+" значное");
+        for(int i=1;i<digits.length;i++)
+        {
+            if(digits[i]<=digits[i-1])
+            {
+                System.out.println("Число "+new String(digits)+" не возрастает");
+                return;
+            }
+        }
+        System.out.println("Число "+new String(digits)+" возрастает");
+    }
+}
