@@ -1,0 +1,9 @@
+public class Reverse {
+    public static void main(String[] args) {
+        int number = 123567;
+        String s=String.valueOf(number);
+        StringBuilder string=new StringBuilder(s).reverse();        
+        System.out.println(string);
+       
+    }
+}
