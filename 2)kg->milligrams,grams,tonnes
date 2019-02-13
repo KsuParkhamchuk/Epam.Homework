@@ -4,6 +4,14 @@ public class Weight
 	{
 		int kg=70,mlg,gr;
                 double tn;
+		 Scanner sc=new Scanner(System.in);
+                System.out.println("Enter kg:");
+               if(sc.hasNextInt()){
+                   kg=sc.nextInt();
+               }else{
+                   System.out.println("This is not a number,relode the program and try again");
+                   return;
+               }
                 mlg=kg*1000000;
                 gr=kg*1000;
                 tn=(double)kg/1000;
