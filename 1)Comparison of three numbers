@@ -2,7 +2,7 @@
 public class Main {
 	public static void main(String[] args)
 	{
-		int a=3,b=6,c=5;
+		int a,b,c;
 		Scanner sc=new Scanner(System.in);
                 System.out.println("Input numbers for the comparison:");
                 a=sc.nextInt();
