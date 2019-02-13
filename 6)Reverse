@@ -1,6 +1,9 @@
 public class Reverse {
     public static void main(String[] args) {
-        int number = 123567;
+        int number;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Please, enter the number");
+        number=sc.nextInt();
         String s=String.valueOf(number);
         StringBuilder string=new StringBuilder(s).reverse().toString();        
         System.out.println(string);
