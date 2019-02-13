@@ -3,10 +3,18 @@ public class Square {
 	public static void main(String[] args)
 	{
                 final double PI=3.1415926536;
-		            double r1=7,r2=4,s1,s2,s3;
-                s1=PI*r1*r1;
-                s2=PI*r2*r2;
-                s3=s1-s2;
-                System.out.println("Square of the ring = "+s3);
+		double r1,r2,s1,s2,s3;
+                Scanner sc=new Scanner(System.in);
+                System.out.println("Enter r1 and r2:");
+                r1=sc.nextDouble();
+                r2= sc.nextDouble();
+                if(r1>r2){
+                    s1=PI*r1*r1;
+                    s2=PI*r2*r2;
+                    s3=s1-s2;
+                    System.out.println("Square of the ring = "+s3);
+                }else{
+                    System.out.println("r2>r1");
+                }
 	}
 }
