@@ -1,6 +1,18 @@
+package main;
+
+import java.util.Scanner;
+
+
 public class IsIncrease {
     public static void main(String[] args) {
-        int number = 123454;
+        int number;
+        Scanner sc=new Scanner(System.in)
+        if(sc.hasNextInt()) {
+           int number = sc.nextInt();
+           System.out.println("Ваше число:" + number);
+           }else{
+           System.out.println("Это не число!");
+           }
         byte digits[] = String.valueOf(number).getBytes();
         if(digits.length!=4)
             System.out.println("Число не четырехзначное, а "+digits.length+" значное");
