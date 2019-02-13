@@ -2,9 +2,11 @@ import static java.lang.Math.pow;
 
 public class Main {
     public static void main(String[] args) {
-        int number = 225645;
-        int sum=0;
+        int number,sum=0;
         double res1,res2,mlt=1;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the number:");
+        number=sc.nextDouble();
         byte digits[] = String.valueOf(number).getBytes();
         double len=digits.length;
         if(len!=6)
