@@ -3,6 +3,11 @@ public class Main {
 	public static void main(String[] args)
 	{
 		int a=3,b=6,c=5;
+		Scanner sc=new Scanner(System.in);
+                System.out.println("Input numbers for the comparison:");
+                a=sc.nextInt();
+                b=sc.nextInt();
+                c=sc.nextInt();
                 if (a==b&&b==c){
                     System.out.println("All numbers are the same");
                 }else 
