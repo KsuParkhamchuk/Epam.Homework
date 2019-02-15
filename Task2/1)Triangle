@@ -1,0 +1,67 @@
+package main;
+
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args)
+	{
+               double x1,x2,x3,y1,y2,y3,l1,l2,l3;
+               System.out.println("Enter the coordinates for three points:\n(x1,y1)=");
+               x1=Check();
+               y1=Check();
+               System.out.println("(x2,y2)=");
+               x2=Check();
+               y2=Check();
+               System.out.println("(x3,y3)=");
+               x3=Check();
+               y3=Check();
+               if((x1==x2&&x2==x3)||(y1==y2)&&(y2==y3)){
+                   System.out.println("This is not a triangle");
+               }
+               l1=CountLength(x1,y1,x2,y2);
+               l2=CountLength(x1,y1,x3,y3);
+               l3=CountLength(x2,y2,x3,y3);
+               System.out.println("Length1="+l1+"\nLength2="+l2+"\nLength3="+l3);
+                double max=0,a=0,b=0;
+               if(l1>l2&&l1>l3){
+                    max=l1;
+                    a=l2;
+                    b=l3;
+               }else{
+                   if(l2>l3&&l2>l1){
+                       max=l2;
+                       a=l1;
+                       b=l3;
+                   }else{
+                       if(l3>l1&&l3>l2){
+                           max=l3;
+                           a=l2;
+                           b=l1;
+                       }
+                   }
+               }
+               if(Math.pow(a,2)+Math.pow(b,2)==Math.pow(max,2)){
+                   System.out.println("Rentagular triangle");
+               }else{
+                   System.out.println("Not rentagular triangle");
+               }
+	}
+        
+        private static double Check(){
+           double num=0;
+            Scanner sc=new Scanner(System.in);
+           try{
+            num=sc.nextDouble();
+           }catch(Exception ex){
+               return Check();
+           }
+           return num;
+        }
+        
+        private static double CountLength(double a,double b,double c, double d){
+            double length=1;
+            
+            return length=Math.pow(Math.pow((a-c),2)+Math.pow((b-d),2),(double)1/2);
+        }
+}
+
