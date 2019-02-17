@@ -1,0 +1,39 @@
+package main;
+
+
+import java.util.Scanner;
+
+
+public class Main {
+	public static void main(String[] args)
+	{
+          int value=0,sum=0;
+          value=Check();
+          for(int i=1;i<value;i++){
+              if(value%i==0){
+                  sum+=i;
+              }
+          }
+          if(sum==value){
+              System.out.println("Perfect number");
+          }else{
+               System.out.println("Imperfect number");
+          }
+         
+        }
+        
+        private static int Check(){
+             int num=0;
+             Scanner sc=new Scanner(System.in);
+             do{
+                System.out.println("Enter the value");          
+                while(!sc.hasNextInt()){
+                    System.out.println("Not a number,try again");
+                    sc.next();
+                }
+                num=sc.nextInt();
+             }while(num<=0);
+            return num;
+           
+        }
+}
