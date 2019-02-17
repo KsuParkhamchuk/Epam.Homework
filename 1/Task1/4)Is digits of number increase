@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class IsIncrease {
     public static void main(String[] args) {
-        int number;
-        Scanner sc=new Scanner(System.in)
+        int number=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Введите четырехзначное число");
         if(sc.hasNextInt()) {
-           int number = sc.nextInt();
+           number = sc.nextInt();
            System.out.println("Ваше число:" + number);
            }else{
            System.out.println("Это не число!");
