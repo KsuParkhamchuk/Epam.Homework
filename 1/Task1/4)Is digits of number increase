@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 
-public class IsIncrease {
+public class Increase {
     public static void main(String[] args) {
         int number=0;
         Scanner sc=new Scanner(System.in);
