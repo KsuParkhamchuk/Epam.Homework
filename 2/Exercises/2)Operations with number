@@ -1,0 +1,149 @@
+package main;
+
+import java.io.PrintStream;
+import java.util.Scanner;
+
+public class Main
+{
+  public static void main(String[] args) {
+      Menu();
+  }
+  
+  public static void Menu()
+  {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Choose an activity:");
+    System.out.println("1-Find the biggest digit");
+    System.out.println("2-Palindrom");
+    System.out.println("3-Check if the number is prime");
+    System.out.println("4-Find all prime divisors");
+    System.out.println("5-Find NOK and NOD");
+    System.out.println("6-Find all different digits in number");
+    int choise = sc.nextInt();
+    switch (choise)
+    {
+    case 1: 
+      FindTheBiggestDigit();
+      break;
+    case 2: 
+      CheckPalindrome();
+      break;
+    case 3: 
+      CheckPrime();
+      break;
+    case 4: 
+      FindPrimeDivisors();
+      break;
+    case 5: 
+      break;
+    case 6: 
+      break;
+    }
+  }
+  
+  public static void FindTheBiggestDigit()
+  {
+    int maxDigit = 0;
+    
+    int num = EnterNumber();
+    while (num > 0)
+    {
+      int digit = num % 10;
+      if (digit > maxDigit) {
+        maxDigit = digit;
+      }
+      num /= 10;
+    }
+    System.out.println("The biggest digit  is " + maxDigit);
+  }
+  
+  public static void CheckPalindrome()
+  {
+    int number;
+    number=EnterNumber();
+    String numInString=String.valueOf(number);
+    String palindrom=new StringBuilder(numInString).reverse().toString(); 
+    if(numInString.equals(palindrom)){
+         System.out.println("This is palindrome");
+    }else{
+    System.out.println("This is not palindrome");
+    }
+  }
+  
+  public static void CheckPrime()
+  {
+    int count = 0;
+    int num = EnterNumber();
+    for (int i = 1; i <= num; i++) {
+      if (num % i == 0) {
+        count++;
+      }
+    }
+    switch (count)
+    {
+    case 2: 
+      System.out.println(num + " is a prime number");
+      System.out.println(num + " is not a prime number");
+    }
+  }
+  
+  public static void FindPrimeDivisors()
+  {
+    int num = EnterNumber();
+    int count=0;
+    
+     for (int div = 1; div <= num; div++) {
+      if (num % div == 0){
+          for(int j=1;j<=div;j++){
+              if(div%j==0){
+                  count++;
+              }
+          }
+                switch (count) {
+                    case 2:
+                        System.out.println(div + " is a prime divisor");
+                        break;
+                    default:
+                        System.out.println(div + " is not a prime divisor");
+                        break;
+                }
+
+            }
+        }
+    }
+  
+  public static void FindDifferentDigits(){
+     String number;
+     int count=0;
+     Scanner sc=new Scanner(System.in);
+     number=sc.nextLine();
+     if(number.length()<2){
+         System.out.println("No different digits");
+     }
+
+             
+  }  
+     
+      
+  
+  
+  public static int EnterNumber()
+  {
+    int value = -1;
+    Scanner scan = null;
+    do
+    {
+      try
+      {
+        scan = new Scanner(System.in);
+        System.out.println("Enter the number:");
+        value = scan.nextInt();
+      }
+      catch (Exception ex)
+      {
+        System.out.println("error:" + ex.getMessage());
+      }
+    } while (value == -1);
+    return value;
+  }
+}
