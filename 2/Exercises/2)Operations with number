@@ -35,6 +35,10 @@ public class Main
       FindPrimeDivisors();
       break;
     case 5: 
+        int val1=EnterNumber();
+        int val2=EnterNumber();
+        CountGCD(val1,val2);
+        CountLCM(val1,val2);
       break;
     case 6: 
       break;
@@ -109,8 +113,35 @@ public class Main
                 }
 
             }
+      count=0;
         }
     }
+  
+  public static int CountGCD(int num1,int num2 ){
+      int gcd;
+      if(num1==num2){
+          gcd=num1;
+          System.out.println("Numbers are the same,gcd:"+gcd);
+      }else{
+              while (num1 != num2) {
+		if (num1 > num2) {
+			num1 = num1 - num2;
+		} else {
+			num2 = num2 - num1;
+		}
+	}
+           gcd=num1;  
+           System.out.println("GCD:"+gcd);
+          }    
+      return gcd;
+      }
+  
+  public static void CountLCM(int a,int b){
+      int lcm=a/CountGCD(a,b)*b;
+      System.out.println("LCM:"+lcm);
+      
+  }
+  
   
   public static void FindDifferentDigits(){
      String number;
@@ -119,9 +150,7 @@ public class Main
      number=sc.nextLine();
      if(number.length()<2){
          System.out.println("No different digits");
-     }
-
-             
+     }         
   }  
      
       
