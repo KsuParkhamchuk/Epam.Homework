@@ -37,12 +37,14 @@ public class Activity {
       
     }
     
-    public static void Menu(double matrix[][],int size1,int size2){
+   public static void Menu(double matrix[][],int size1,int size2){
         int choice;
+        boolean isInputCorrect=false;
+        
+      do{
         Scanner sc=new Scanner(System.in);
-        System.out.println("\nMenu:\n1-Find max and min element\n2-Find Arithmitical and geometrical mean\n3-Local minimums and maximums\n4-Transpose matrix");
+        System.out.println("\nMenu:\n1-Find max and min element\n2-Find Arithmitical and geometrical mean\n3-Local minimums and maximums\n4-Transpose matrix\n0-Finish work");
         choice=sc.nextInt();
-       
         switch(choice){
             case 1: 
                     FindMaxAndMinElement(matrix,size1,size2);
@@ -55,11 +57,14 @@ public class Activity {
                 break;
             case 4:TransposeMatrix();
                 break;
-            default:
+            case 0: 
+                    isInputCorrect=true;
                 break;
-            
-        }
-    }
+            default: System.out.println("Make another choice");
+                break;
+        } 
+        }while(!isInputCorrect);
+      }
     
     public static void FindMaxAndMinElement(double matr[][],int size1,int size2){
         double maxElement=matr[0][0];
@@ -94,8 +99,8 @@ public class Activity {
             }
         }
         System.out.println(sum+" "+mult);
-        arMean=sum/(size1*size2);
-        gMean=Math.pow(mult,(double)1/(size1*size2));
+        arMean=new BigDecimal(sum/(size1*size2)).setScale(3,RoundingMode.HALF_UP).doubleValue();
+        gMean=new BigDecimal(Math.pow(mult,(double)1/(size1*size2))).setScale(3,RoundingMode.HALF_UP).doubleValue();
         System.out.println("Arithmetical Mean:"+ arMean);
         System.out.println("Geometrical Mean:"+ gMean);
     }
@@ -220,26 +225,7 @@ public class Activity {
               System.out.print(matrix[j][i]+"  ");
           }
       }       
-       
-       
-       if(rows<columns){
-          for(int i=0;i<rows-count;i++){
-          System.out.println();
-          for(int j=0;j<columns;j++){
-              System.out.print(matrix[i][j]+" ");
-             }
-          }
-       }else{
-               for(int i=0;i<rows-count;i++){
-                  System.out.println();
-                  for(int j=0;j<columns;j++){
-                  System.out.print(matrix[i][j]+" ");
-             }
-          
-         }
         }
-                
-    }
     
 
     
