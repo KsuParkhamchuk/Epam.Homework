@@ -1,0 +1,20 @@
+
+package liabrary;
+
+import java.util.ArrayList;
+
+public class BookStore extends ArrayList<Book> {
+    public Book getBook(int index)
+    {
+        return (Book)this.get(index);
+    }
+
+    public void listBookToOut()
+    {
+        for(Book b:toArray(new Book[0]))
+            System.out.print(b);
+    }
+    
+    
+    
+}
