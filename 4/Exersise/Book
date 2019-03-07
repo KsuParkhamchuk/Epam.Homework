@@ -13,11 +13,11 @@ public class Book {
    private Optional <String> bookName;
    private Optional <String> author;
    private Optional <String> yearOfPublishing;
-   private Optional <Integer> pages;
+   private Optional <String> pages;
    private Optional <String> type;
    private Optional <String> genre;
 
-   public Book(String bookname,String author,String yearOfPublishing,int pages,String type,String genre){
+   public Book(String bookname,String author,String yearOfPublishing,String pages,String type,String genre){
        this.bookName = Optional.of(bookname);
        this.author = Optional.of(author);
        this.yearOfPublishing = Optional.of(yearOfPublishing);
@@ -41,7 +41,7 @@ public class Book {
         return yearOfPublishing;
     }
 
-    public Optional<Integer> getPages() {
+    public Optional<String> getPages() {
         return pages;
     }
 
@@ -66,7 +66,7 @@ public class Book {
         this.yearOfPublishing = yearOfPublishing;
     }
 
-    public void setPages(Optional<Integer> pages) {
+    public void setPages(Optional<String> pages) {
         this.pages = pages;
     }
   
