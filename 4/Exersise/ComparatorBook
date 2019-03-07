@@ -1,0 +1,23 @@
+package liabrary;
+
+import java.util.Comparator;
+
+
+public class ComparatorBook implements Comparator<Book> {
+    public static int sortType=0;
+    
+    @Override
+    public int compare(Book b1, Book b2) {
+        switch(sortType)
+        {
+            case 1: return  b1.getBookName().toString().compareTo(b2.getBookName().toString());
+            case 2: return  b1.getAuthor().toString().compareTo(b2.getAuthor().toString());
+            case 3: return  b1.getPages().get().compareTo(b2.getPages().get());
+            case 4: return  b1.getType().toString().compareTo(b2.getType().toString());
+            case 5: return b1.getGenre().toString().compareTo(b2.getGenre().toString());
+            default: System.out.println("Input error!");
+        }
+        return 0;
+    }
+
+}
