@@ -1,0 +1,181 @@
+package liabrary;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class Functional {
+    
+    private static BookStore BStore;
+    
+    public  static void Menu(){
+        int choise;
+        boolean isWorkEnded=false;
+        
+        try {
+            BStore = Functional.ReadBooks();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Functional.class.getName()).log(Level.WARNING, null, ex);
+        }                    
+        do{
+            
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Make your choise:");
+        System.out.println("1-Find book\n2-Sort books\n3-count pages\n4-Show books\n0-Exit");
+        choise=sc.nextInt();//Check();
+       
+        switch(choise){
+            case 1:findBook();
+                break;
+            case 2: sortBook();
+                break;
+            case 3:
+                break;
+            case 4:
+                    BStore.listBookToOut();                
+
+                break;
+            case 0: 
+                isWorkEnded=true;
+        }
+        } while(!isWorkEnded);
+    }
+    
+    private static void  sortBook(){
+        int choise;
+        boolean isWorkEnded=false;
+        while( !isWorkEnded){
+            try{
+            Scanner sc=new Scanner(System.in);
+             System.out.println("Make your choise:");
+             System.out.println("1-sort by name\n2-sort by author\n3-sort by pages\n4-sort by type\n0-Return");
+            choise=sc.nextInt();
+            ComparatorBook.sortType=choise;
+            if(choise!=0){
+            Collections.sort(BStore, new ComparatorBook());
+            BStore.listBookToOut();
+            }else {
+                return;
+                    }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+    }
+    }
+    
+    
+    private static String formatString(String txt,int off,int ind)
+    {
+        if(off==-1 || ind==-1)return txt;
+        txt = txt.substring(off,ind);
+        txt=txt.replaceAll(",", new String());
+        txt = txt.trim();
+        return txt;
+    }
+    
+    public static BookStore ReadBooks() throws FileNotFoundException {
+        BookStore books = new BookStore();
+        try{
+            BufferedReader bf=new BufferedReader(new FileReader("C:\\Users\\Я\\Documents\\NetBeansProjects\\Liabrary\\DataBase.txt"));
+            String line;
+            while((line = bf.readLine())!=null)
+            {
+                int[] indexes = new int[10];
+                indexes[0] = line.indexOf(" ");//index[0] index of start name 
+                //1[_]Милый друг, Ги де Мопассан, 1990,400, книга
+                indexes[1] = line.indexOf(",", indexes[0]+1);//Name
+                indexes[2] = line.indexOf(",", indexes[1]+1);//Publisher
+                indexes[3] = line.indexOf(",", indexes[2]+1);//Public year or date
+                indexes[4] = line.indexOf(",", indexes[3]+1);//Pages count 
+                indexes[5] = line.indexOf(",",indexes[4]);//Type
+                              
+                String bookName = indexes[1]>0 && indexes[0]>0?formatString(line,indexes[0],indexes[1]).trim():"undefined";
+                String bookPublisher = indexes[2]>0 && indexes[1]>0?formatString(line,indexes[1],indexes[2]).trim():"undefined";
+                String bookYear = indexes[3]>0 && indexes[2]>0?formatString(line,indexes[2],indexes[3]).trim():"undefined";
+                int bookPages = indexes[4]>0 && indexes[3]>0?Integer.parseInt(formatString(line,indexes[3],indexes[4])):0;
+                String bookContent = indexes[5]>0 && indexes[4]>0?formatString(line,indexes[4],indexes[5]).trim():"undefined";
+                
+                //Check if book have pages
+                String bookGenre = "";
+                
+                if(indexes[5]<0)
+                    bookGenre = indexes[4]>0?formatString(line,indexes[5],line.length()).trim():"undefined";//
+                else
+                    bookGenre = formatString(line,indexes[5],line.length()).trim();
+                //Check if book have genre
+                                
+                Book oneOf = new Book(
+                        bookName,
+                        bookPublisher,
+                        bookYear,
+                        bookPages,
+                        bookContent,
+                        bookGenre
+                );
+                books.add(oneOf);
+            }
+        }catch(IOException ex){
+            System.out.println("File Read Error");
+            return null;
+        }
+        return books;
+    }
+    
+    
+    public static void countPsgesMenu(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Counting pages...");
+        System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific");
+        String choise=sc.nextLine();
+        switch(choise.charAt(0)){
+            case '1': countPage("роман");
+            case '2':
+        }
+        
+        
+    }
+    //метод в разработке
+    public static void countPage(String genre){
+        int count=0;
+        for (Book b:BStore){
+            if (b.getGenre().equals(genre)){
+                count+=b.getPages().get();
+            }
+        }
+    }
+    
+    public  static void findBook(){
+        Scanner sc=new Scanner(System.in);
+        String findedBook;
+        System.out.println("What do you want to find?");
+        findedBook=sc.nextLine();
+        for(Book b:BStore){
+            if (b.getAuthor().toString().contains(findedBook)||
+                b.getBookName().toString().contains(findedBook)||
+                b.getYearOfPublishing().toString().contains(findedBook)||
+                b.getPages().toString().contains(findedBook)||
+                b.getType().toString().contains(findedBook)
+                    )
+                System.out.println(b);
+        }
+    }
+    
+   //метод в разработке 
+    public static int check(){
+        int value=0XFFFFF;
+        try{
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Your value");
+            value=sc.nextInt();
+        }catch(InputMismatchException e){
+            e.printStackTrace();
+        }
+        return value;
+    }
+}
