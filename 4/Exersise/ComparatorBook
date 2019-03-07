@@ -1,4 +1,4 @@
-package liabrary;
+package library;
 
 import java.util.Comparator;
 
