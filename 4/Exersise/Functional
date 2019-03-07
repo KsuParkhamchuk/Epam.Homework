@@ -1,3 +1,4 @@
+
 package library;
 
 import java.io.*;
@@ -39,7 +40,6 @@ public class Functional {
                 break;
             case 4:
                     BStore.listBookToOut();                
-
                 break;
             case 0: 
                 isWorkEnded=true;
@@ -89,26 +89,28 @@ public class Functional {
                 int[] indexes = new int[10];
                 indexes[0] = line.indexOf(" ");//index[0] index of start name 
                 //1[_]Милый друг, Ги де Мопассан, 1990,400, книга
-                indexes[1] = line.indexOf(",", indexes[0]+1);//Name
-                indexes[2] = line.indexOf(",", indexes[1]+1);//Publisher
-                indexes[3] = line.indexOf(",", indexes[2]+1);//Public year or date
-                indexes[4] = line.indexOf(",", indexes[3]+1);//Pages count 
-                indexes[5] = line.indexOf(",",indexes[4]);//Type
+                for(int i =1; i < 7; i++){
+                    if (line.indexOf(",", indexes[i-1]+1) == -1){
+                        if(i==4){
+                            indexes[i]=indexes[i-1];
+                            indexes[i+1] = line.length();
+                            break;
+                        }
+                        indexes[i] = line.length();
+                        break;
+                    }else {
+                    indexes[i] = line.indexOf(",", indexes[i-1]+1);
+                    }
+                }
+               
                               
                 String bookName = indexes[1]>0 && indexes[0]>0?formatString(line,indexes[0],indexes[1]).trim():"undefined";
                 String bookPublisher = indexes[2]>0 && indexes[1]>0?formatString(line,indexes[1],indexes[2]).trim():"undefined";
                 String bookYear = indexes[3]>0 && indexes[2]>0?formatString(line,indexes[2],indexes[3]).trim():"undefined";
-                int bookPages = indexes[4]>0 && indexes[3]>0?Integer.parseInt(formatString(line,indexes[3],indexes[4])):0;
+                String bookPages = indexes[4]>0 && indexes[3]>0?formatString(line,indexes[3],indexes[4]).trim():"undefined";
                 String bookContent = indexes[5]>0 && indexes[4]>0?formatString(line,indexes[4],indexes[5]).trim():"undefined";
-                
-                //Check if book have pages
-                String bookGenre = "";
-                
-                if(indexes[5]<0)
-                    bookGenre = indexes[4]>0?formatString(line,indexes[5],line.length()).trim():"undefined";//
-                else
-                    bookGenre = formatString(line,indexes[5],line.length()).trim();
-                //Check if book have genre
+                String bookGenre = indexes[6]>0 && indexes[5]>0?formatString(line,indexes[5],indexes[6]).trim():"undefined";
+                    
                                 
                 Book oneOf = new Book(
                         bookName,
@@ -134,13 +136,13 @@ public class Functional {
         System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific");
         String choise=sc.nextLine();
         switch(choise.charAt(0)){
-            case '1': countPage("роман");
+            //case '1': countPage("роман");
             case '2':
         }
         
         
     }
-    //метод в разработке
+   // в разработке
     public static void countPage(String genre){
         int count=0;
         for (Book b:BStore){
@@ -166,7 +168,7 @@ public class Functional {
         }
     }
     
-   //метод в разработке 
+    //в разработке
     public static int check(){
         int value=0XFFFFF;
         try{
