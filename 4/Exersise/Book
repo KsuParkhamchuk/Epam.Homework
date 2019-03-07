@@ -1,1 +1,88 @@
-j
+
+package liabrary;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Optional;
+
+
+public class Book {
+   private Optional <String> bookName;
+   private Optional <String> author;
+   private Optional <String> yearOfPublishing;
+   private Optional <Integer> pages;
+   private Optional <String> type;
+   private Optional <String> genre;
+
+   public Book(String bookname,String author,String yearOfPublishing,int pages,String type,String genre){
+       this.bookName = Optional.of(bookname);
+       this.author = Optional.of(author);
+       this.yearOfPublishing = Optional.of(yearOfPublishing);
+       this.pages = Optional.of(pages);
+       this.type = Optional.of(type); 
+       this.genre = Optional.of(genre);
+   }
+    public Optional<String> getType() {
+        return type;
+    }
+
+    public Optional<String> getBookName() {
+        return bookName;
+    }
+
+    public Optional<String> getAuthor() {
+        return author;
+    }
+
+    public Optional<String> getYearOfPublishing() {
+        return yearOfPublishing;
+    }
+
+    public Optional<Integer> getPages() {
+        return pages;
+    }
+
+     public Optional<String> getGenre() {
+        return genre;
+    }
+     
+    public void setType(Optional<String> type) {
+        this.type = type;
+    }
+
+    public void setBookName(Optional<String> bookName) {
+        this.bookName = bookName;
+    }
+
+    public void setAuthor(Optional<String> author) {
+        this.author = author;
+    }
+
+    public void setYearOfPublishing(Optional<String> yearOfPublishing) {
+       
+        this.yearOfPublishing = yearOfPublishing;
+    }
+
+    public void setPages(Optional<Integer> pages) {
+        this.pages = pages;
+    }
+  
+     public void setGenre(Optional<String> genre) {
+        this.genre = genre;
+    }
+     
+    @Override
+    public String toString()
+    {
+            return "Name: "+getBookName().get() +
+            " Publicsher: "+getAuthor().get() +
+            " Year: "+getYearOfPublishing().get() +
+            " Pages:"+getPages().get() +
+            " Type:"+getType().get() +
+            "Genre:"+getGenre().get()+
+            "\n";
+    }
+}
