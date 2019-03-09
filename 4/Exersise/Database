@@ -1,0 +1,33 @@
+package library;
+
+import com.mysql.cj.protocol.Resultset;
+import liabrary.Book;
+import liabrary.BookStore;
+
+import java.sql.*;
+
+public class Database {
+    public static BookStore connectToDatabase() throws SQLException,ClassNotFoundException {
+        String userName="root";
+        String pass="1111";
+        String url="jdbc:mysql://localhost:3306/Library?verifyServerCertificate=false&serverTimezone=UTC";
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        BookStore books = new BookStore();
+        try(Connection con= DriverManager.getConnection(url,userName,pass);
+            Statement st=con.createStatement()){
+            ResultSet rst;
+            rst = st.executeQuery("Select name,author,yearOfPublishing,pages,type,genre from books");
+            while (rst.next()) {
+                Book oneOf = new Book(
+                        rst.getString("name"), rst.getString("author"),
+                        rst.getString("yearOfPublishing"), rst.getString("pages"),
+                        rst.getString("type"), rst.getString("genre"));
+                books.add(oneOf);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return books;
+
+    }
+}
