@@ -1,7 +1,12 @@
-
-package library;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package liabrary;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -14,16 +19,14 @@ public class Functional {
     
     private static BookStore BStore;
     
-    public  static void Menu(){
+    public  static void Menu() throws SQLException,ClassNotFoundException{
         int choise;
         boolean isWorkEnded=false;
-        
-        try {
-            BStore = Functional.ReadBooks();
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Functional.class.getName()).log(Level.WARNING, null, ex);
-        }                    
+            
+            BStore = Database.connectToDatabase();
+
+
         do{
             
         Scanner sc=new Scanner(System.in);
@@ -36,10 +39,11 @@ public class Functional {
                 break;
             case 2: sortBook();
                 break;
-            case 3:
+            case 3: countPagesMenu();
                 break;
             case 4:
                     BStore.listBookToOut();                
+
                 break;
             case 0: 
                 isWorkEnded=true;
@@ -79,77 +83,39 @@ public class Functional {
         return txt;
     }
     
-    public static BookStore ReadBooks() throws FileNotFoundException {
-        BookStore books = new BookStore();
-        try{
-            BufferedReader bf=new BufferedReader(new FileReader("C:\\Users\\Я\\Documents\\NetBeansProjects\\Liabrary\\DataBase.txt"));
-            String line;
-            while((line = bf.readLine())!=null)
-            {
-                int[] indexes = new int[10];
-                indexes[0] = line.indexOf(" ");//index[0] index of start name 
-                //1[_]Милый друг, Ги де Мопассан, 1990,400, книга
-                for(int i =1; i < 7; i++){
-                    if (line.indexOf(",", indexes[i-1]+1) == -1){
-                        if(i==4){
-                            indexes[i]=indexes[i-1];
-                            indexes[i+1] = line.length();
-                            break;
-                        }
-                        indexes[i] = line.length();
-                        break;
-                    }else {
-                    indexes[i] = line.indexOf(",", indexes[i-1]+1);
-                    }
-                }
-               
-                              
-                String bookName = indexes[1]>0 && indexes[0]>0?formatString(line,indexes[0],indexes[1]).trim():"undefined";
-                String bookPublisher = indexes[2]>0 && indexes[1]>0?formatString(line,indexes[1],indexes[2]).trim():"undefined";
-                String bookYear = indexes[3]>0 && indexes[2]>0?formatString(line,indexes[2],indexes[3]).trim():"undefined";
-                String bookPages = indexes[4]>0 && indexes[3]>0?formatString(line,indexes[3],indexes[4]).trim():"undefined";
-                String bookContent = indexes[5]>0 && indexes[4]>0?formatString(line,indexes[4],indexes[5]).trim():"undefined";
-                String bookGenre = indexes[6]>0 && indexes[5]>0?formatString(line,indexes[5],indexes[6]).trim():"undefined";
-                    
-                                
-                Book oneOf = new Book(
-                        bookName,
-                        bookPublisher,
-                        bookYear,
-                        bookPages,
-                        bookContent,
-                        bookGenre
-                );
-                books.add(oneOf);
-            }
-        }catch(IOException ex){
-            System.out.println("File Read Error");
-            return null;
-        }
-        return books;
-    }
+
     
     
-    public static void countPsgesMenu(){
+    public static void countPagesMenu(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Counting pages...");
         System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific");
-        String choise=sc.nextLine();
-        switch(choise.charAt(0)){
-            //case '1': countPage("роман");
-            case '2':
+        int choise=sc.nextInt();
+        switch(choise){
+            case 1: countPage("роман");
+            break;
+            case 2:countPage("роман");
+            break;
+            case 3:countPage("роман");
+            break;
+            case 4:countPage("роман");
+            break;
+            case 5:countPage("классика");
+            break;
         }
         
         
     }
-   // в разработке
+    
     public static void countPage(String genre){
         int count=0;
         for (Book b:BStore){
+            System.out.println(b.getGenre() + " " + genre + " " + b.getPages());
             if (b.getGenre().equals(genre)){
-                count+=b.getPages().get();
+                count+=Integer.parseInt(b.getPages());
             }
         }
+        System.out.println(count);
     }
     
     public  static void findBook(){
@@ -168,7 +134,7 @@ public class Functional {
         }
     }
     
-    //в разработке
+    
     public static int check(){
         int value=0XFFFFF;
         try{
