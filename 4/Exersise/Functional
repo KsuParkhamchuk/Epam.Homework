@@ -22,11 +22,7 @@ public class Functional {
     public  static void Menu() throws SQLException,ClassNotFoundException{
         int choise;
         boolean isWorkEnded=false;
-
-            
-            BStore = Database.connectToDatabase();
-
-
+        BStore = Database.connectToDatabase();
         do{
             
         Scanner sc=new Scanner(System.in);
@@ -42,8 +38,7 @@ public class Functional {
             case 3: countPagesMenu();
                 break;
             case 4:
-                    BStore.listBookToOut();                
-
+                    BStore.listBookToOut();
                 break;
             case 0: 
                 isWorkEnded=true;
@@ -88,22 +83,38 @@ public class Functional {
     
     public static void countPagesMenu(){
         Scanner sc = new Scanner(System.in);
+        boolean isWorkEnded=false;
         System.out.println("Counting pages...");
-        System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific");
+        System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific\n0-exit");
         int choise=sc.nextInt();
-        switch(choise){
-            case 1: countPage("роман");
-            break;
-            case 2:countPage("роман");
-            break;
-            case 3:countPage("роман");
-            break;
-            case 4:countPage("роман");
-            break;
-            case 5:countPage("классика");
-            break;
+        while(!isWorkEnded) {
+            switch (choise) {
+                case 1:
+                    countPage("роман");
+                    break;
+                case 2:
+                    countPage("триллер");
+                    break;
+                case 3:
+                    countPage("поэзия");
+                    break;
+                case 4:
+                    countPage("комикс");
+                    break;
+                case 5:
+                    countPage("классика");
+                    break;
+                case 6:
+                    countPage("научная");
+                    break;
+                case 0:
+                    isWorkEnded=true;
+                    break;
+                default:
+                    System.out.println("Wrong input!");
+                    break;
+            }
         }
-        
         
     }
     
