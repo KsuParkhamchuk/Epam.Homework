@@ -14,34 +14,34 @@ import java.util.Optional;
 
 
 public class Book {
-   private Optional <String> bookName;
-   private Optional <String> author;
-   private Optional <String> yearOfPublishing;
+   private String bookName;
+   private String author;
+   private String yearOfPublishing;
    private  String pages;
-   private Optional <String> type;
+   private String type;
    private String genre;
 
    public Book(String bookname,String author,String yearOfPublishing,String pages,String type,String genre){
-       this.bookName = Optional.of(bookname);
-       this.author = Optional.of(author);
-       this.yearOfPublishing = Optional.of(yearOfPublishing);
+       this.bookName = bookname;
+       this.author = author;
+       this.yearOfPublishing = yearOfPublishing;
        this.pages = pages;
-       this.type = Optional.of(type); 
+       this.type = type;
        this.genre = genre;
    }
-    public Optional<String> getType() {
+    public String getType() {
         return type;
     }
 
-    public Optional<String> getBookName() {
+    public String getBookName() {
         return bookName;
     }
 
-    public Optional<String> getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public Optional<String> getYearOfPublishing() {
+    public String getYearOfPublishing() {
         return yearOfPublishing;
     }
 
@@ -53,19 +53,19 @@ public class Book {
         return genre;
     }
      
-    public void setType(Optional<String> type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public void setBookName(Optional<String> bookName) {
+    public void setBookName(String bookName) {
         this.bookName = bookName;
     }
 
-    public void setAuthor(Optional<String> author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public void setYearOfPublishing(Optional<String> yearOfPublishing) {
+    public void setYearOfPublishing(String yearOfPublishing) {
        
         this.yearOfPublishing = yearOfPublishing;
     }
@@ -81,11 +81,11 @@ public class Book {
     @Override
     public String toString()
     {
-            return "Name: "+getBookName().get() +
-            " Publicsher: "+getAuthor().get() +
-            " Year: "+getYearOfPublishing().get() +
+            return "Name: "+getBookName() +
+            " Publicsher: "+getAuthor() +
+            " Year: "+getYearOfPublishing() +
             " Pages:"+getPages() +
-            " Type:"+getType().get() +
+            " Type:"+getType() +
             "Genre:"+getGenre()+
             "\n";
     }
