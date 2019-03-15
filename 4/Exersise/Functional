@@ -1,160 +1,177 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package liabrary;
+package library;
 
-import java.io.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 
 public class Functional {
-    
+
     private static BookStore BStore;
-    
-    public  static void Menu() throws SQLException,ClassNotFoundException{
+    private static final Logger log = Logger.getLogger(Functional.class);
+
+    public static void Menu() throws SQLException,ClassNotFoundException{
         int choise;
         boolean isWorkEnded=false;
-        BStore = Database.connectToDatabase();
+        BStore = Database.createBookStore();
         do{
-            
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Make your choise:");
-        System.out.println("1-Find book\n2-Sort books\n3-count pages\n4-Show books\n0-Exit");
-        choise=sc.nextInt();//Check();
-       
-        switch(choise){
-            case 1:findBook();
-                break;
-            case 2: sortBook();
-                break;
-            case 3: countPagesMenu();
-                break;
-            case 4:
+            System.out.println("Make your choise:");
+            System.out.println("1-Find book\n2-Sort books\n3-count pages\n4-Show books\n0-Exit");
+            choise=check();
+
+            switch(choise){
+                case 1:findBook();
+                    break;
+                case 2: sortBook();
+                    break;
+                case 3: countPagesMenu();
+                    break;
+                case 4:
                     BStore.listBookToOut();
-                break;
-            case 0: 
-                isWorkEnded=true;
-        }
+                    break;
+                    default:
+                        System.out.println("Wrong input!");
+                        log.warn("Wrong input(Menu)");
+                        break;
+                case 0:
+                    isWorkEnded=true;
+            }
         } while(!isWorkEnded);
     }
-    
+
     private static void  sortBook(){
-        int choise;
+        int choice;
         boolean isWorkEnded=false;
         while( !isWorkEnded){
             try{
-            Scanner sc=new Scanner(System.in);
-             System.out.println("Make your choise:");
-             System.out.println("1-sort by name\n2-sort by author\n3-sort by pages\n4-sort by type\n0-Return");
-            choise=sc.nextInt();
-            ComparatorBook.sortType=choise;
-            if(choise!=0){
-            Collections.sort(BStore, new ComparatorBook());
-            BStore.listBookToOut();
-            }else {
-                return;
+                System.out.println("Make your choice:");
+                System.out.println("1-sort by name\n2-sort by author\n3-sort by pages\n4-sort by type\n0-Return");
+                choice=check();
+                ComparatorBook.sortType=choice;
+                if(choice!=0&&choice<5){
+                    Collections.sort(BStore, new ComparatorBook());
+                    BStore.listBookToOut();
+                }else
+                    if(choice==0) {
+                        return;
                     }
             }catch(Exception ex){
-                ex.printStackTrace();
-            }
-    }
-    }
-    
-    
-    private static String formatString(String txt,int off,int ind)
-    {
-        if(off==-1 || ind==-1)return txt;
-        txt = txt.substring(off,ind);
-        txt=txt.replaceAll(",", new String());
-        txt = txt.trim();
-        return txt;
-    }
-    
-
-    
-    
-    public static void countPagesMenu(){
-        Scanner sc = new Scanner(System.in);
-        boolean isWorkEnded=false;
-        System.out.println("Counting pages...");
-        System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific\n0-exit");
-        int choise=sc.nextInt();
-        while(!isWorkEnded) {
-            switch (choise) {
-                case 1:
-                    countPage("роман");
-                    break;
-                case 2:
-                    countPage("триллер");
-                    break;
-                case 3:
-                    countPage("поэзия");
-                    break;
-                case 4:
-                    countPage("комикс");
-                    break;
-                case 5:
-                    countPage("классика");
-                    break;
-                case 6:
-                    countPage("научная");
-                    break;
-                case 0:
-                    isWorkEnded=true;
-                    break;
-                default:
-                    System.out.println("Wrong input!");
-                    break;
+                log.error("SortBook choise is wrong");
             }
         }
-        
     }
-    
-    public static void countPage(String genre){
+
+
+
+    public static void countPagesMenu() {
+        boolean isWorkEnded = false;
+        do {
+            System.out.println("Counting pages...");
+            System.out.println("1-novels\n2-thrillers\n3-poems\n4-comix\n5-classic\n6-scientific\n0-exit");
+            int choice = check();
+            log.info("CountPages choise:"+choice);
+            {
+                switch (choice) {
+                    case 1:
+                        countPage("роман");
+                        break;
+                    case 2:
+                        countPage("триллер");
+                        break;
+                    case 3:
+                        countPage("поэзия");
+                        break;
+                    case 4:
+                        countPage("комикс");
+                        break;
+                    case 5:
+                        countPage("классика");
+                        break;
+                    case 6:
+                        countPage("научная");
+                        break;
+                    case 0:
+                        isWorkEnded = true;
+                        break;
+                    default:
+                        System.out.println("Wrong input!");
+                        log.warn("Wrong input(CountPagesMenu)");
+                        break;
+                }
+            }
+        }while (!isWorkEnded) ;
+    }
+
+    public static int countPage(String genre){
         int count=0;
         for (Book b:BStore){
-            System.out.println(b.getGenre() + " " + genre + " " + b.getPages());
             if (b.getGenre().equals(genre)){
                 count+=Integer.parseInt(b.getPages());
             }
         }
+        if(count==0){
+            System.out.println("There are no "+genre+" in thr library");
+        }
         System.out.println(count);
+        return count;
     }
-    
-    public  static void findBook(){
+
+    public  static void findBook() throws ClassNotFoundException, SQLException{
         Scanner sc=new Scanner(System.in);
         String findedBook;
-        System.out.println("What do you want to find?");
+        int choice=check();
+        boolean isWorkEnded=false;
+        do {
+            Statement st = Database.connection().createStatement();
+            System.out.println("What do you want to find?");
+            System.out.println("1-name\n2-author\n3-genre\n0-exit");
+            switch (choice) {
+                case 1:
+                    ResultSet rtst = st.executeQuery("");
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 0: isWorkEnded=true;
+                    break;
+                default:
+                    System.out.println("Wrong inpur!");
+            }
+        }while(!isWorkEnded);
         findedBook=sc.nextLine();
-        for(Book b:BStore){
-            if (b.getAuthor().toString().contains(findedBook)||
-                b.getBookName().toString().contains(findedBook)||
-                b.getYearOfPublishing().toString().contains(findedBook)||
-                b.getPages().toString().contains(findedBook)||
-                b.getType().toString().contains(findedBook)
-                    )
+       /* for(Book b:BStore){
+            if (b.getAuthor().contains(findedBook)||
+                    b.getBookName().contains(findedBook)||
+                    b.getYearOfPublishing().contains(findedBook)||
+                    b.getPages().contains(findedBook)||
+                    b.getType().contains(findedBook)
+            )
                 System.out.println(b);
-        }
+        }*/
+
+
+
     }
-    
-    
+
+
     public static int check(){
         int value=0XFFFFF;
-        try{
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Your value");
-            value=sc.nextInt();
-        }catch(InputMismatchException e){
-            e.printStackTrace();
-        }
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Your value");
+                value = sc.nextInt();
+            } catch (InputMismatchException e) {
+                log.error("Warning!,e");
+            }
+        }while(value==0xFFFFF);
         return value;
     }
 }
